@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event Details
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="clearfix">
+            <a class="btn btn-primary left" href="{% url 'scheduler:calendar' %}"> Calendar </a>
+        </div>
+
+        <div class="clearfix">
+            <h3>{{ event.title }}</h3>
+            <hr>
+        </div>
+        <hr>
+        <div class="clearfix">
+
+            <a class="btn btn-success right" href="{% url 'scheduler:shift_resource' event.id %}"> Add Member </a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for resource in eventresource %}
+                <tr role="row">
+
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ resource.username}}</td>
+
+                </tr>
+                {% endfor %}
+              </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Shift
+{% endblock %}
+
+{% block content %}
+<div class="clearfix">
+  <a class="btn btn-info left" href="{% url 'scheduler:calendar' %}"> Calendar </a>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+{{ forms.as_p }}
+    <button type="submit" class="btn btn-info right"> Submit </button>
+</form>
+{% endblock %}

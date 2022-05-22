@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+             <th>username</th>
+             <th>status</th>
+             <th>Role</th>
+             <th>Name</th>
+             <th>Surname</th>
+             <th>Start Date</th>
+             <th>End Date</th>
+             <th>Delete</th>
+             <th>Edit</th>
+             <th>Email</th>
+        </tr>
+         {% for resource in resources %}
+        <tr>
+            <td>{{ resource.id }}</td>
+            <td>{{ resource.username }}</td>
+            <td>{{ resource.status }}</td>
+            <td>{{ resource.role }}</td>
+            <td>{{ resource.name }}</td>
+            <td>{{ resource.surname }}</td>
+            <td>{{ resource.start_date }}</td>
+            <td>{{ resource.end_date }}</td>
+            <form method="post" action="{% url 'set_inactive' resource.id %}">
+                {% csrf_token %}
+                <span class="input-group-btn">
+                    <td><button class="btn btn-warning" type="submit">Delete</button></td>
+                </span>
+            </form>
+
+            <td><a href="{% url 'edit_resource' resource.id %}" class="btn btn-info">Edit</a></td>
+            {% if resource.email_sent == 0 %}
+                {% if resource.role == 'Analyst'%}
+                    <td><a href="{% url 'signup_regular' resource.id%}" class="btn btn-info">Send Invite</a></td>
+                {% elif resource.role == 'Senior Analyst' %}
+                    <td><a href="{% url 'signup_regular' resource.id %}" class="btn btn-info">Send Invite</a></td>
+                {% else %}
+                    <td><a href="{% url 'signup' resource.id %}" class="btn btn-info">Send Invite</a></td>
+                {% endif %}
+            {% else %}
+                <td>Invitation Sent</td>
+            {% endif %}
+        </tr>
+               {% endfor %}
+    </table>
+
+
+{% endblock %}

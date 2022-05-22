@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event
+{% endblock %}
+
+{% block content %}
+<div class="clearfix">
+  <a class="btn btn-info left" href="{% url 'scheduler:calendar' %}"> Calendar </a>
+</div>
+
+<form action="#" method="post" class="signup-form">
+     {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="label" for="email">Shift</label>
+                    {{ form.title }}
+                    <span class="text-danger">{{ form.errors.title }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="label" for="email">Description</label>
+                    {{ form.description }}
+                    <span class="text-danger">{{ form.errors.description }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="label" for="password">Start Time</label>
+                    {{ form.start_time }}
+                    <span class="text-danger">{{ form.errors.start_time }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="label" for="password">Start Time</label>
+                    {{ form.end_time }}
+                    <span class="text-danger">{{ form.errors.end_time }}</span>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+ </form>
+{% endblock %}
+

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-10 col-md-9">
+            <h3>{{ resource_form.name.surname}}</h3>
+            <div class="row">
+                <div class="col-xs-9">
+                    <p>{{ resource_form.eid }}</p>
+                    <p><span class="boldtext">Start Date:</span> {{ resource_form.startDate }} </p>
+                    <p><span class="boldtext">End Date:</span> {{resource_form.endDate}}</p>
+
+                    <a href="{% url 'active_resources' %}" class="btn btn-default">Back</a>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

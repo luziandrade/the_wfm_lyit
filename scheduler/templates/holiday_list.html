@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table>
+
+        <tr>
+            <th>ID</th>
+             <th>User</th>
+             <th>Start Date</th>
+             <th>Start Date</th>
+             <th>Description</th>
+             <th></th>
+             <th></th>
+        </tr>
+         {% for holiday in holidays %}
+        <tr>
+            <td>{{ holiday.id }}</td>
+            <td>{{ holiday.username }}</td>
+            <td>{{ holiday.start_time }}</td>
+            <td>{{ holiday.end_time }}</td>
+            <td>{{ holiday.description }}</td>
+            <td><a href="{% url 'scheduler:deny_holiday' holiday.id %}" class="btn btn-danger">Deny</a></td>
+
+            <td><a href="{% url 'scheduler:accept_holiday' holiday.id %}" class="btn btn-info">Approve</a></td>
+
+        </tr>
+               {% endfor %}
+    </table>
+
+
+{% endblock %}
