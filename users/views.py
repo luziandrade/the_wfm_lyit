@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth
+
+from scheduler.models import AddResource, Event
 from users.forms import UserLoginForm, UserRegistrationForm, ResourcesForm, AdminRegistrationForm
 from django.contrib.auth.decorators import login_required
 from .models import Resource
@@ -174,3 +176,9 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
     else:
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+
+
+def get_shifts(request):
+    shifts = AddResource.objects.all().filter(username=request.user)
+    events = Event.objects.all().filter(username=request.user)
+    return render(request, 'profile.html', {'shifts': shifts})

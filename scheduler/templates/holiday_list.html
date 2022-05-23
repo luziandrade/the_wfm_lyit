@@ -1,15 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block content %}
 
-    <table>
+<div class="container table-responsive " data-spy="scroll">
+    <table  class="table table-bordered">
 
         <tr>
             <th>ID</th>
              <th>User</th>
              <th>Start Date</th>
              <th>Start Date</th>
-             <th>Description</th>
+             <th>Title</th>
              <th></th>
              <th></th>
         </tr>
@@ -19,14 +20,14 @@
             <td>{{ holiday.username }}</td>
             <td>{{ holiday.start_time }}</td>
             <td>{{ holiday.end_time }}</td>
-            <td>{{ holiday.description }}</td>
+            <td>{{ holiday.title }}</td>
             <td><a href="{% url 'scheduler:deny_holiday' holiday.id %}" class="btn btn-danger">Deny</a></td>
 
-            <td><a href="{% url 'scheduler:accept_holiday' holiday.id %}" class="btn btn-info">Approve</a></td>
+            <td><a href="{% url 'scheduler:accept_holiday' holiday.id %}" class="btn btn-success">Approve</a></td>
 
         </tr>
                {% endfor %}
     </table>
-
+</div>
 
 {% endblock %}

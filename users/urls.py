@@ -14,6 +14,7 @@ urlpatterns = [
     path('signup/<int:id>', views.signup, name='signup'),
     path('signup_regular/<int:id>', views.signup, name='signup_regular'),
     path('activate/<uidb64>/<token>/',views.activate, name='activate'),
+    path('get_shifts/', views.get_shifts, name='get_shifts'),
 
 
 ]

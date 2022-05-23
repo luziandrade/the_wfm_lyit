@@ -60,7 +60,6 @@ def create_event(request):
         start_time = form.cleaned_data["start_time"]
         end_time = form.cleaned_data["end_time"]
         Event.objects.get_or_create(
-
             title=title,
             description=description,
             start_time=start_time,
@@ -74,11 +73,12 @@ def create_event(request):
 def event_holiday(request):
     form = EventForm(request.POST or None)
     if request.user.is_authenticated and request.POST and form.is_valid():
+
         description = form.cleaned_data["description"]
         start_time = form.cleaned_data["start_time"]
         end_time = form.cleaned_data["end_time"]
         Event.objects.get_or_create(
-
+            user=request.user,
             description=description,
             start_time=start_time,
             end_time=end_time,
@@ -116,9 +116,9 @@ def getcalender(request):
 
 def event_details(request, id):
     event = Event.objects.get(id=id)
-    eventresource = AddResource.objects.filter(event=event)
+    eventresource = AddResource.objects.filter(event=event).distinct()
     context = {"event": event, "eventresource": eventresource}
-    return render(request, "event-details.html", context)
+    return render(request, "event_details.html", context)
 
 
 def shift_resource(request, id):
@@ -131,11 +131,16 @@ def shift_resource(request, id):
             if member.count() <= 9:
                 username = forms.cleaned_data["username"]
                 AddResource.objects.create(event=event, username=username)
-                return redirect("scheduler:event_detail", event.id)
+                return redirect("scheduler:event_details", event.id)
             else:
                 print("--------------User limit exceed!-----------------")
     context = {"forms": forms}
     return render(request, "add_shift_resource.html", context)
+
+
+def get_shifts(request):
+    shifts = AddResource.objects.all().filter(username=request.user)
+    return render(request, 'profile.html', {'shifts': shifts})
 
 
 def all_holiday(request):
