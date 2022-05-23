@@ -3,7 +3,7 @@ from users import urls_reset
 from . import views
 
 urlpatterns = [
-    path('index/', views.index, name='index'),
+    path('', views.index, name='index'),
     path('logout/', views.logout, name='logout'),
     path('login/', views.login, name='login'),
     path('add_resource/', views.add_resources, name='add_resource'),

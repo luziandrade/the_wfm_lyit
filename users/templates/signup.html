@@ -1,14 +1,17 @@
+{% extends 'base/base.html' %}
+{% load bootstrap_tags %}
+
 {% block content %}
-  <h2>Register Employee</h2>
+<div class="container">
 
 
-         Employee Username: {{ resources.username }}
+  <form class='form-resgiter' method="post">
+    <h2>Register Employee</h2>
 
-
-  <form method="post">
+    <p>Employee Username: {{ resources.username }}</p>
     {% csrf_token %}
       {% for field in form %}
-      <p>
+
         {{ field.label_tag }}<br>
         {{ field }}
         {% if field.help_text %}
@@ -19,6 +22,8 @@
         {% endfor %}
       </p>
       {% endfor %}
-    <button type="submit">Send Invitation</button>
+    <button class="btn btn-primary" type="submit">Send Invitation</button>
+
   </form>
+</div>
 {% endblock %}

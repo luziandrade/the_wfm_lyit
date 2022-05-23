@@ -80,7 +80,7 @@ class UserRegistrationForm(UserCreationForm):
 class ResourcesForm(forms.ModelForm):
     class Meta:
         model = Resource
-        fields = '__all__'
+        exclude = ('status','email_sent',)
         widgets = {
             "start_date": DateInput(
                 attrs={"type": "date", "class": "form-control"},

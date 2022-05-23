@@ -1,22 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 {% load bootstrap_tags %}
 
 {% block content %}
 
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
 
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
-  {% endif %}
 
-  <form method="post" action="{% url 'login' %}">
+<div class="container">
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+  <form class="form-signup" method="post" action="{% url 'login' %}">
+      <h2>Sign in</h2>
     {% csrf_token %}
     <table>
       <tr>
@@ -28,11 +26,15 @@
         <td>{{ login_form.password }}</td>
       </tr>
     </table>
-    <input type="submit" value="login" />
+    <input class="btn btn-primary" type="submit" value="Login" />
+
     <input type="hidden" name="next" value="{{ next }}" />
+
+      <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
   </form>
 
+</div>
   {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
 
 {% endblock %}

@@ -1,20 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Event Calendar{% endblock title %}
+
+{% block extracss %}
+  <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
+{% endblock extracss %}
 
 {% block content %}
+<section class="image"></section>
 
-<section class="home">
-</section>
-<section class="about">
-<h2> About</h2>
-<h3> Antiquities are Ireland's Premier Specialist Art and Collectibles</h3>
-   {% if user.is_authenticated %}
-        <li>Hi, {{ user.get_username }}</li>
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-   {% else %}
-        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-        <li><a href="{% url 'password_reset' %}?next={{request.path}}">Reset Password</a></li>
-   {% endif %}
+    <div class="image" id="home">
+        <div class="w3-display-middle" style="white-space:nowrap;">
+            <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">The <span class="w3-hide-small">Workforce Management </span> Tool</span>
+        </div>
+    </div>
 
-</section>
 
 {% endblock %}

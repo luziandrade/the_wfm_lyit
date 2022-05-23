@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -46,7 +47,7 @@ def login(request):
                 auth.login(user=user, request=request)
                 return redirect(reverse('index'))
             else:
-                login_form.add_error(None, "Your username or password is incorrect")
+                messages.error(request, 'Your username or password is incorrect')
     else:
         login_form = UserLoginForm()
     return render(request, 'registration/login.html', {'login_form': login_form})
@@ -102,10 +103,10 @@ def resource_detail(request, id):
 
 def signup(request, id):
     resources = Resource.objects.get(id=id)
-    resources.email_sent = 1
-    resources.save()
     if request.method == 'POST':
         form = AdminRegistrationForm(request.POST)
+        resources.email_sent = 1
+        resources.save()
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = True
