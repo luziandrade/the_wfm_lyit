@@ -16119,7 +16119,8 @@ be a descendant of the grid when it is being dragged.
 
 .image{
   background-image: url('../images/calendar.jpg');
-  min-height: 100%;
+
+  height: 100em;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;

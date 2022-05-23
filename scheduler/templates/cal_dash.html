@@ -7,14 +7,7 @@
 {% endblock extracss %}
 
 {% block breadcrumb %}
-  <div>
-      <h1><i class="fa fa-calendar"></i> Roster Management</h1>
-      <p>Scheduler</p>
-  </div>
-  <ul class="app-breadcrumb breadcrumb">
-      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="#">Calendar</a></li>
-  </ul>
+
 {% endblock breadcrumb %}
 
 {% block content %}
@@ -22,7 +15,9 @@
     <div class="col-md-12">
         <div class="tile row">
             <div class="col-md-3 card" style="width: 18rem;">
-                <a href="{% url 'scheduler:event_new' %}" class="btn btn-warning stretched-link card-title"> Add a new Shift </a>
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'scheduler:event_new' %}" class="btn btn-warning stretched-link card-title"> Add a new Shift </a>
+                {% endif %}
                 <div id="card-body">
                     <h4 class="mb-4 card-title">Running Shift</h4>
                     {% for event in events_month %}
@@ -67,16 +62,9 @@
           selectMirror: true,
           select: function(arg) {
             console.log('clicked')
-            var modal = document.getElementById('eventModal')
-            modal.style.display = 'block'
-            calendar.unselect()
+
           },
 
-          eventClick: function(arg) {
-            if (confirm('Are you sure you want to delete this event?')) {
-              arg.event.remove()
-            }
-          },
           editable: true,
           dayMaxEvents: true,
           events: {{ events|safe }},
@@ -85,15 +73,6 @@
 
         calendar.render();
       });
-      const closeBtn1 = document.getElementById('modalClose1');
-      const closeBtn2 = document.getElementById('modalClose2');
-      closeBtn1.addEventListener('click',()=>{
-        const eventModal = document.getElementById('eventModal')
-        eventModal.style.display = 'none';
-      });
-      closeBtn2.addEventListener('click',()=>{
-        const eventModal = document.getElementById('eventModal')
-        eventModal.style.display = 'none';
-      });
+
   </script>
 {% endblock extrascripts %}

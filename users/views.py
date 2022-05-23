@@ -9,7 +9,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -22,6 +21,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 # Create your views here.
@@ -55,6 +55,8 @@ def login(request):
     return render(request, 'registration/login.html', {'login_form': login_form})
 
 
+@staff_member_required()
+@login_required()
 def add_resources(request):
     if request.method == "POST":
         resource_form = ResourcesForm(request.POST)
@@ -66,12 +68,16 @@ def add_resources(request):
     return render(request, 'add_resource.html', {'resource_form': resource_form})
 
 
+@staff_member_required()
+@login_required()
 def active_resources(request):
     resources = Resource.objects.all().filter(status=1).order_by('name')
 
     return render(request, 'all_resources.html', {'resources': resources})
 
 
+@staff_member_required()
+@login_required()
 def set_inactive(request, id):
     resources = Resource.objects.get(id=id)
     resources.status = 0
@@ -79,6 +85,8 @@ def set_inactive(request, id):
     return redirect(reverse('active_resources'))
 
 
+@staff_member_required()
+@login_required()
 def edit_resource(request, id=None):
     resource = get_object_or_404(Resource, id=id) if id else None
     if request.method == "POST":
@@ -91,11 +99,8 @@ def edit_resource(request, id=None):
     return render(request, 'add_resource.html', {'resource_form': resource_form})
 
 
-def do_search(request):
-    resources = Resource.objects.filter(name__icontains=request.GET['q'], status=1)
-    return render(request, "all_resources.html", {"employees": resources})
-
-
+@staff_member_required()
+@login_required()
 def resource_detail(request, id):
     resource_form = get_object_or_404(Resource, id=id)
     resource_form.views += 1
@@ -103,15 +108,18 @@ def resource_detail(request, id):
     return render(request, "resource.html", {'resource_form': resource_form})
 
 
+@login_required()
 def signup(request, id):
     resources = Resource.objects.get(id=id)
+
     if request.method == 'POST':
+
         form = AdminRegistrationForm(request.POST)
+
         resources.email_sent = 1
         resources.save()
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = True
             user.is_superuser = True
             user.save()
             current_site = get_current_site(request)
@@ -133,6 +141,7 @@ def signup(request, id):
     return render(request, 'signup.html', {'form': form, 'resources': resources})
 
 
+@login_required()
 def signup_regular(request, id):
     resources = Resource.objects.get(id=id)
     resources.email_sent = 1
@@ -141,7 +150,7 @@ def signup_regular(request, id):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = True
+
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Workforce Management Tool '
@@ -178,7 +187,8 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
 
 
+@staff_member_required()
+@login_required()
 def get_shifts(request):
-    shifts = AddResource.objects.all().filter(username=request.user)
-    events = Event.objects.all().filter(username=request.user)
-    return render(request, 'profile.html', {'shifts': shifts})
+    events = Event.objects.all().filter(user=request.user).filter(title='Holiday')
+    return render(request, 'profile.html', {'events': events})

@@ -13,7 +13,6 @@ class UserLoginForm(forms.Form):
 
 
 class AdminRegistrationForm(UserCreationForm):
-    is_superuser = forms.BooleanField(),
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput)
@@ -46,6 +45,7 @@ class AdminRegistrationForm(UserCreationForm):
 
 
 class UserRegistrationForm(UserCreationForm):
+    is_superuser = forms.BooleanField(),
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput)
@@ -75,6 +75,7 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password1'].initial = '9237456n0!'
         self.fields['password2'].disabled = True
         self.fields['password2'].initial = '9237456n0!'
+
 
 
 class ResourcesForm(forms.ModelForm):

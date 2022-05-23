@@ -7,14 +7,15 @@
 
 {% block content %}
 
-{% for shift in shifts %}
+{% for event in events %}
     <div class="card">
-        <div class="card-header">
-            {{ shift.title }}
-        </div>
+       <h4 class="card-header">Accepted holidays</h4>
+            <div class="card-body">
+            <p class="card-text">From {{ event.start_time }} To {{ event.end_time }}</p>
+         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
-        <p>From:}</p>
+
 
         </blockquote>
         </div>

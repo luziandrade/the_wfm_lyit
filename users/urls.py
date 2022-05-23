@@ -1,4 +1,4 @@
-from django.urls import path, include,re_path
+from django.urls import path, include
 from users import urls_reset
 from . import views
 
@@ -12,7 +12,7 @@ urlpatterns = [
     path('edit/<int:id>', views.edit_resource, name='edit_resource'),
     path('password-reset/', include(urls_reset)),
     path('signup/<int:id>', views.signup, name='signup'),
-    path('signup_regular/<int:id>', views.signup, name='signup_regular'),
+    path('signup_regular/<int:id>', views.signup_regular, name='signup_regular'),
     path('activate/<uidb64>/<token>/',views.activate, name='activate'),
     path('get_shifts/', views.get_shifts, name='get_shifts'),
 

@@ -7,7 +7,6 @@ app_name = "scheduler"
 
 urlpatterns = [
     path("calender/", views.getcalender, name="calendar"),
-    path("calenders/", views.CalendarView.as_view(), name="calendars"),
     path("event/new/", views.create_event, name="event_new"),
     path("event_details/<int:id>/", views.event_details, name="event_details"),
     path("shift_resource/<int:id>", views.shift_resource, name="shift_resource"),
