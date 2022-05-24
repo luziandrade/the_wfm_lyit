@@ -2,6 +2,10 @@ from django.urls import path, include
 from users import urls_reset
 from . import views
 
+from .views import (
+    ResourceListApiView,
+)
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('logout/', views.logout, name='logout'),
@@ -15,6 +19,7 @@ urlpatterns = [
     path('signup_regular/<int:id>', views.signup_regular, name='signup_regular'),
     path('activate/<uidb64>/<token>/',views.activate, name='activate'),
     path('get_shifts/', views.get_shifts, name='get_shifts'),
+    path('api/', ResourceListApiView.as_view()),
 
 
 ]

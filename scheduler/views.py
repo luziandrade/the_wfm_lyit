@@ -6,6 +6,11 @@ from django.urls import reverse
 from .models import Event, AddResource
 from .forms import EventForm, AddResourceForm
 from django.contrib.admin.views.decorators import staff_member_required
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import permissions
+from .serializers import EventSerializer
 
 
 @login_required()
@@ -122,3 +127,13 @@ def accept_holiday(request, id):
     holidays.status = 1
     holidays.save()
     return redirect(reverse('scheduler:all_holiday'))
+
+
+class EventListApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        events = Event.objects.all()
+        serializer = EventSerializer(events, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

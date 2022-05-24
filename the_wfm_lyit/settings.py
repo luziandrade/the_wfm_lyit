@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-r(0j2e7z^2q*lv4-3@b6sjrxyfwku6-!fnn(0#$u#%q!4#yy6v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost:8000']
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_forms_bootstrap',
+    'rest_framework',
     'scheduler',
     'users',
 ]

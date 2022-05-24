@@ -1,19 +1,13 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import reverse, get_object_or_404
 from django.contrib import auth
-
-from scheduler.models import AddResource, Event
+from scheduler.models import Event
 from users.forms import UserLoginForm, UserRegistrationForm, ResourcesForm, AdminRegistrationForm
 from django.contrib.auth.decorators import login_required
 from .models import Resource
-from django.core.mail import send_mail
-from django.conf import settings
 from django.contrib import messages
-
-from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-
+from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -22,6 +16,11 @@ from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
 from django.contrib.admin.views.decorators import staff_member_required
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import permissions
+from .serializers import ResourceSerializer
 
 
 # Create your views here.
@@ -192,3 +191,13 @@ def activate(request, uidb64, token):
 def get_shifts(request):
     events = Event.objects.all().filter(user=request.user).filter(title='Holiday')
     return render(request, 'profile.html', {'events': events})
+
+
+class ResourceListApiView(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        resources = Resource.objects.all()
+        serializer = ResourceSerializer(resources, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

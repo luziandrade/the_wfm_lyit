@@ -77,11 +77,10 @@ class UserRegistrationForm(UserCreationForm):
         self.fields['password2'].initial = '9237456n0!'
 
 
-
 class ResourcesForm(forms.ModelForm):
     class Meta:
         model = Resource
-        exclude = ('status','email_sent',)
+        exclude = ('status', 'email_sent',)
         widgets = {
             "start_date": DateInput(
                 attrs={"type": "date", "class": "form-control"},

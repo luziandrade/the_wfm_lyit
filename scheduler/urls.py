@@ -1,9 +1,10 @@
 from django.urls import path
-
 from . import views
+from .views import (
+    EventListApiView,
+)
 
 app_name = "scheduler"
-
 
 urlpatterns = [
     path("calender/", views.getcalender, name="calendar"),
@@ -15,5 +16,6 @@ urlpatterns = [
     path("deny/<int:id>", views.deny_holiday, name="deny_holiday"),
     path("accept/<int:id>", views.accept_holiday, name="accept_holiday"),
     path("event/", views.event, name="event"),
+    path('api/', EventListApiView.as_view()),
 
 ]
