@@ -7,7 +7,8 @@ Event
 {% block content %}
 
 <div class="container"></div>
-    <form class="form-signup" method="post">
+    <form class="form-signup col text-center " method="post">
+      <h2 style="text-align:center;">Create a shift</h2>
         {% csrf_token %}
         <table class="form form-table">
             {{ form }}

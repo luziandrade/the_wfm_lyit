@@ -7,8 +7,9 @@ Event
 {% block content %}
 
 <div class="container">
-    <form class='form-signup'method="post">
-    {% csrf_token %}
+    <form class='form-signup col text-center'method="post">
+    <h2>Add a user </h2>
+     {% csrf_token %}
         <table class="form form-table">
             {{ resource_form }}
             <tr><td colspan="2"><button class="btn btn-primary" type="submit" class="btn btn-info right"> Submit </button></td></tr>

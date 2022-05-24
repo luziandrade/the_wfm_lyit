@@ -16101,6 +16101,11 @@ be a descendant of the grid when it is being dragged.
   box-shadow:15px 15px 0px rgba(0,0,0,.1);
 }
 
+.form-signup h2 {
+ padding-bottom: 15px;
+}
+
+
 .form-reset {
   background:#fff;
   border-radius:9px;

@@ -41,10 +41,11 @@ def event_holiday(request):
         end_time = form.cleaned_data["end_time"]
         Event.objects.get_or_create(
             user=request.user,
+            title='Holiday',
             description=description,
             start_time=start_time,
             end_time=end_time,
-            defaults={'status': 2, 'title': 'Holiday'}
+            defaults={'status': 2}
         )
         return HttpResponseRedirect(reverse("scheduler:calendar"))
     return render(request, "event_holiday.html", {"form": form})
@@ -130,7 +131,6 @@ def accept_holiday(request, id):
 
 
 class EventListApiView(APIView):
-    # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):

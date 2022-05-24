@@ -15,7 +15,7 @@
     <div class="col-md-12">
         <div class="tile row">
             <div class="col-md-3 card" style="width: 18rem;">
-                {% if request.user.is_superuser %}
+                {% if request.user.is_staff %}
                     <a href="{% url 'scheduler:event_new' %}" class="btn btn-warning stretched-link card-title"> Add a new Shift </a>
                 {% endif %}
                 <div id="card-body">

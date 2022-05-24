@@ -60,7 +60,7 @@ def add_resources(request):
     if request.method == "POST":
         resource_form = ResourcesForm(request.POST)
         if resource_form.is_valid():
-            resource = resource_form.save()
+            resource_form.save()
             return redirect(active_resources)
     else:
         resource_form = ResourcesForm()
@@ -71,7 +71,6 @@ def add_resources(request):
 @login_required()
 def active_resources(request):
     resources = Resource.objects.all().filter(status=1).order_by('name')
-
     return render(request, 'all_resources.html', {'resources': resources})
 
 
@@ -119,7 +118,7 @@ def signup(request, id):
         resources.save()
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_superuser = True
+            user.is_staff = True
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Workforce Management Tool '
@@ -186,15 +185,15 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
 
 
-@staff_member_required()
 @login_required()
 def get_shifts(request):
+    resources = Resource.objects.all().filter(username=request.user)
     events = Event.objects.all().filter(user=request.user).filter(title='Holiday')
-    return render(request, 'profile.html', {'events': events})
+    return render(request, 'profile.html', {'events': events, 'resources': resources})
+
 
 
 class ResourceListApiView(APIView):
-    # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):

@@ -7,20 +7,38 @@
 
 {% block content %}
 
-{% for event in events %}
-    <div class="card">
-       <h4 class="card-header">Accepted holidays</h4>
-            <div class="card-body">
-            <p class="card-text">From {{ event.start_time }} To {{ event.end_time }}</p>
-         </div>
-        <div class="card-body">
-            <blockquote class="blockquote mb-0">
 
+<div class="container table-responsive " data-spy="scroll">
 
-        </blockquote>
-        </div>
-    </div>
-{% endfor %}
+    <table class="table table-bordered">
+
+        <tr>
+            <th>Description</th>
+             <th>Start Date</th>
+             <th>End Date</th>
+             <th></th>
+
+        </tr>
+         {% for event in events %}
+        <tr>
+            <td>{{ event.description }}</td>
+            <td>{{ event.start_time }}</td>
+            <td>{{ event.end_time }}</td>
+            {% if event.status == 2 %}
+                <td><a class="btn btn-secondary">Pending</a></td>
+            {% elif event.status == 1 %}
+                <td><a class="btn btn-success">Approved</a></td>
+            {% else %}
+                <td><a class="btn btn-danger">Denied</a></td>
+            {% endif %}
+
+        </tr>
+         {% empty %}
+             <p>No Running Holiday Request Found</p>
+        {% endfor %}
+    </table>
+</div>
+
 
 
 {% endblock %}
