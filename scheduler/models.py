@@ -58,14 +58,6 @@ class Event(EventAbstract):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        return reverse("scheduler:event-detail", args=(self.id,))
-
-    @property
-    def get_html_url(self):
-        url = reverse("scheduler:event-detail", args=(self.id,))
-        return f'<a href="{url}"> {self.title} </a>'
-
 
 class AddResource(EventAbstract):
     """ Event member model """
@@ -74,6 +66,7 @@ class AddResource(EventAbstract):
     username = models.ForeignKey(
         Resource, on_delete=models.CASCADE, blank=True, null=True, related_name="event_members"
     )
+    status = models.IntegerField(default=1)
 
     def __str__(self):
         return str(self.username)

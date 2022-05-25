@@ -34,7 +34,10 @@
 
         </tr>
          {% empty %}
-             <p>No Running Holiday Request Found</p>
+
+             <div class="alert alert-success" role="alert">
+                No Running Holiday Request Found
+            </div>
         {% endfor %}
     </table>
 </div>

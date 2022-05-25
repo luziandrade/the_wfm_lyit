@@ -15,7 +15,6 @@ urlpatterns = [
     path("event_holiday/", views.event_holiday, name="event_holiday"),
     path("deny/<int:id>", views.deny_holiday, name="deny_holiday"),
     path("accept/<int:id>", views.accept_holiday, name="accept_holiday"),
-    path("event/", views.event, name="event"),
     path('api/', EventListApiView.as_view()),
 
 ]

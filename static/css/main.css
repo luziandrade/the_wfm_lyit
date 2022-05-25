@@ -16116,16 +16116,24 @@ be a descendant of the grid when it is being dragged.
   box-shadow:15px 15px 0px rgba(0,0,0,.1);
 }
 
-.container {
+.container-form {
   margin-top: 35px;
   padding: 16px;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
 
 .image{
   background-image: url('../images/calendar.jpg');
-
-  height: 100em;
+  height: 485px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -16135,6 +16143,7 @@ be a descendant of the grid when it is being dragged.
 
 /* Footer section */
 footer{
+  clear: both;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -16155,6 +16164,8 @@ footer{
 
 .footer-distributed .footer-center{
 	width: 35%;
+    margin-left: 35%;
+
 }
 
 

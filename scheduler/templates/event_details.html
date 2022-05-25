@@ -7,15 +7,14 @@ Event Details
 {% block content %}
     <div class="container">
         <div class="clearfix">
-            <a class="btn btn-success right" href="{% url 'scheduler:shift_resource' event.id %}"> Add Member </a>
+            <a class="btn btn-success right" href="{% url 'scheduler:shift_resource' event.id %}"> Assign a Employee </a>
         </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Name </th>
-                  <th>  </th>
-                  <th>  </th>
+
                 </tr>
               </thead>
               <tbody>
@@ -24,7 +23,6 @@ Event Details
 
                     <td>{{ forloop.counter }}</td>
                     <td>{{ resource.username}}</td>
-
                 </tr>
                 {% endfor %}
               </tbody>

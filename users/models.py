@@ -18,7 +18,7 @@ class Resource(models.Model):
     surname = models.CharField(max_length=254, default='')
     role = models.CharField(max_length=30, choices=ROLE, default='')
     start_date = models.DateField()
-    end_date = models.DateField(null=True)
+    end_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.username

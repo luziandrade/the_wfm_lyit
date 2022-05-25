@@ -147,7 +147,9 @@ def signup_regular(request, id):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
+
             user = form.save(commit=False)
+            user.is_active = False
 
             user.save()
             current_site = get_current_site(request)
@@ -180,9 +182,10 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         # return redirect('home')
-        return HttpResponse('Activation link is invalid!')
-    else:
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
 
 
 @login_required()

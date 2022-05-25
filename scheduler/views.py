@@ -75,9 +75,10 @@ def getcalender(request):
 @login_required()
 def event_details(request, id):
     event = Event.objects.get(id=id)
-    eventresource = AddResource.objects.filter(event=event).distinct()
+    eventresource = AddResource.objects.filter(event=event).filter(status=1)
     context = {"event": event, "eventresource": eventresource}
     return render(request, "event_details.html", context)
+
 
 
 @staff_member_required()
@@ -106,10 +107,6 @@ def all_holiday(request):
     return render(request, 'holiday_list.html', {'holidays': holidays})
 
 
-@login_required()
-def event(request):
-    events = Event.objects.all()
-    return render(request, 'events.html', {'events': events})
 
 
 @staff_member_required()
